@@ -18,3 +18,5 @@ type Kv struct {
 const (
 	GormCachePrefix = "gormcache"
 )
+
+var InstanceId = ""

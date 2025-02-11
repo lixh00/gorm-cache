@@ -8,15 +8,29 @@ import (
 	"time"
 )
 
-func GenInstanceId() string {
+// SetInstanceId
+// @description: 设置实例ID
+// @param id
+func SetInstanceId(id string) {
+	InstanceId = id
+}
+
+// GetInstanceId
+// @description: 获取实例ID
+// @return string
+func GetInstanceId() string {
+	if InstanceId != "" {
+		return InstanceId
+	}
 	charList := []byte("1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
-	rand.Seed(time.Now().Unix())
+	rand.New(rand.NewSource(time.Now().UnixNano()))
 	length := 5
 	str := make([]byte, 0)
 	for i := 0; i < length; i++ {
 		str = append(str, charList[rand.Intn(len(charList))])
 	}
-	return string(str)
+	InstanceId = string(str)
+	return InstanceId
 }
 
 func GenPrimaryCacheKey(instanceId string, tableName string, primaryKey string) string {

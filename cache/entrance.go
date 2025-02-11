@@ -2,7 +2,6 @@ package cache
 
 import (
 	"fmt"
-
 	"github.com/lixh00/gorm-cache/config"
 )
 

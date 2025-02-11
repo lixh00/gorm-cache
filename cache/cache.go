@@ -2,10 +2,10 @@ package cache
 
 import (
 	"context"
+	jsoniter "github.com/json-iterator/go"
 	"github.com/lixh00/gorm-cache/config"
 	"github.com/lixh00/gorm-cache/storage"
 	"github.com/lixh00/gorm-cache/util"
-	jsoniter "github.com/json-iterator/go"
 	"gorm.io/gorm"
 )
 
@@ -74,7 +74,7 @@ func (c *Gorm2Cache) AttachToDB(db *gorm.DB) {
 }
 
 func (c *Gorm2Cache) Init() error {
-	c.InstanceId = util.GenInstanceId()
+	c.InstanceId = util.GetInstanceId()
 
 	if c.Config.CacheStorage != nil {
 		c.cache = c.Config.CacheStorage

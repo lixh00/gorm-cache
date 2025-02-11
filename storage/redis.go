@@ -23,7 +23,7 @@ func NewRedis(config ...*RedisStoreConfig) *Redis {
 		panic("redis config is required")
 	}
 	if config[0].KeyPrefix == "" {
-		config[0].KeyPrefix = util.GormCachePrefix + ":" + util.GenInstanceId()
+		config[0].KeyPrefix = util.GormCachePrefix + ":" + util.GetInstanceId()
 	}
 	r := &Redis{
 		keyPrefix: config[0].KeyPrefix,
