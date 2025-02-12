@@ -3,6 +3,7 @@ package config
 import (
 	"github.com/lixh00/gorm-cache/storage"
 	"github.com/lixh00/gorm-cache/util"
+	"time"
 )
 
 type CacheConfig struct {
@@ -24,7 +25,7 @@ type CacheConfig struct {
 	AsyncWrite bool
 
 	// CacheTTL cache ttl in ms, where 0 represents forever
-	CacheTTL int64
+	CacheTTL time.Duration
 
 	// CacheMaxItemCnt for given query, if objects retrieved are more than this cnt,
 	// then we choose not to cache for this query. 0 represents caching all queries.

@@ -38,7 +38,7 @@ func NewRedis(config ...*RedisStoreConfig) *Redis {
 
 type Redis struct {
 	client    *redis.Client
-	ttl       int64
+	ttl       time.Duration
 	logger    util.LoggerInterface
 	keyPrefix string
 
@@ -172,7 +172,7 @@ func (r *Redis) BatchSetKeys(ctx context.Context, kvs []util.Kv) error {
 	}
 	_, err := r.client.Pipelined(ctx, func(pipeliner redis.Pipeliner) error {
 		for _, kv := range kvs {
-			result := pipeliner.Set(ctx, kv.Key, kv.Value, time.Duration(util.RandFloatingInt64(r.ttl))*time.Millisecond)
+			result := pipeliner.Set(ctx, kv.Key, kv.Value, r.ttl)
 			if result.Err() != nil {
 				r.logger.CtxError(ctx, "[BatchSetKeys] set key %s error: %v", kv.Key, result.Err())
 				return result.Err()
@@ -184,5 +184,5 @@ func (r *Redis) BatchSetKeys(ctx context.Context, kvs []util.Kv) error {
 }
 
 func (r *Redis) SetKey(ctx context.Context, kv util.Kv) error {
-	return r.client.Set(ctx, kv.Key, kv.Value, time.Duration(util.RandFloatingInt64(r.ttl))*time.Millisecond).Err()
+	return r.client.Set(ctx, kv.Key, kv.Value, r.ttl).Err()
 }

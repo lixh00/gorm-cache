@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"github.com/lixh00/gorm-cache/util"
+	"time"
 )
 
 var (
@@ -11,7 +12,7 @@ var (
 )
 
 type Config struct {
-	TTL    int64
+	TTL    time.Duration
 	Debug  bool
 	Logger util.LoggerInterface
 }

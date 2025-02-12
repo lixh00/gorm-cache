@@ -2,11 +2,10 @@ package storage
 
 import (
 	"context"
-	"github.com/lixh00/gorm-cache/util"
 	"github.com/bluele/gcache"
+	"github.com/lixh00/gorm-cache/util"
 	"strings"
 	"sync"
-	"time"
 )
 
 var _ DataStorage = &Gcache{}
@@ -29,7 +28,7 @@ type Gcache struct {
 func (g *Gcache) Init(config *Config) error {
 	g.once.Do(func() {
 		if config.TTL != 0 {
-			g.builder.Expiration(time.Duration(config.TTL) * time.Microsecond)
+			g.builder.Expiration(config.TTL)
 		}
 		g.cache = g.builder.Build()
 	})

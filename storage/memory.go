@@ -40,7 +40,7 @@ func (m *Memory) Init(conf *Config) error {
 	m.once.Do(func() {
 		c := ccache.New(ccache.Configure[string]().MaxSize(m.config.MaxSize))
 		m.cache = c
-		m.ttl = conf.TTL
+		m.ttl = conf.TTL.Milliseconds()
 	})
 	return nil
 }
